@@ -174,6 +174,26 @@ def parens_match_dc_helper(mylist):
       L is the number of unmatched left parentheses. This output is used by 
       parens_match_dc to return the final True or False value
     """
+    n = len(mylist)
+    if n == 0:
+        return(0,0)
+    elif n==1:
+        if mylist[0] == "("
+        return(1,0)
+    elif mylist[0] == ")"
+        return(0,1)
+    else:
+        return(0,0)
+    left_half = mylist[:n//2]
+    right_half = mylist[n//2:]
+
+    n_unmatched_left_l, n_unmatched_right_l = parens_match_dc_helper(left_half)
+    n_unmatched_left_r, n_unmatched_right_r = parens_match_dc_helper(right_half)
+
+    n_unmatched_left = max(0, n_unmatched_left_l - n_unmatched_right_r) + n_unmatched_left_r
+    n_unmatched_right = max(0, n_unmatched_right_r - n_unmatched_left_l) + n_unmatched_right_l
+
+    return (n_unmatched_right, n_unmatched_left)
     
     pass
     
